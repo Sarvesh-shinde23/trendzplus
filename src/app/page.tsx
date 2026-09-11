@@ -10,6 +10,7 @@ import StoreLocator from "@/components/StoreLocator";
 import Testimonials from "@/components/Testimonials";
 import TrustBadges from "@/components/TrustBadges";
 import WhyChooseUs from "@/components/WhyChoooseUs";
+import FollowTheTrend from "@/components/FollowtheTrend";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
       <PhotoHelpdesk />
       <Testimonials />
       <TrustBadges />
+      <FollowTheTrend/>
       <Footer />
     
    </>
