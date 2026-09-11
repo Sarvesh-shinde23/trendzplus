@@ -13,7 +13,7 @@ export default function Hero() {
         {/* Left */}
         <div>
           <span className="inline-flex items-center gap-2 rounded-full bg-orange-100 px-3 py-1 text-xs font-semibold text-orange-600">
-            🛡️ HONEST FAMILY RETAIL • SINCE 1998
+            🛡️ HONEST FAMILY RETAIL • SINCE 2001
           </span>
 
           <h1 className="mt-4 text-4xl font-extrabold leading-tight text-navy-900 sm:text-5xl">

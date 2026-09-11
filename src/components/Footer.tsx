@@ -139,28 +139,7 @@ export default function Footer() {
             reserved.
           </p>
 
-          <div className="flex gap-4">
-            <a
-              href="#"
-              className="transition hover:text-navy-900"
-            >
-              Exchange Policy
-            </a>
-
-            <a
-              href="#"
-              className="transition hover:text-navy-900"
-            >
-              Privacy Policy
-            </a>
-
-            <a
-              href="#"
-              className="transition hover:text-navy-900"
-            >
-              Terms of Service
-            </a>
-          </div>
+          
         </div>
       </div>
     </footer>

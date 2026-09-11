@@ -6,10 +6,7 @@ import { useEnquiryModal } from "@/context/EnquiryModalContext";
 import { ProductCategory, products } from "@/lib/product";
 import { WhatsAppIcon } from "./Icons";
 
-
 type TabId = "all" | ProductCategory;
-
-
 
 const tabs: { id: TabId; label: string }[] = [
   { id: "all", label: "All Picks" },
@@ -26,8 +23,12 @@ const badgeStyles: Record<string, string> = {
   orange: "bg-orange-500 text-white",
 };
 
+const PRODUCTS_PER_PAGE = 8;
+
 export default function ProductShowcase() {
   const [activeTab, setActiveTab] = useState<TabId>("all");
+  const [showAll, setShowAll] = useState(false);
+
   const { openModal } = useEnquiryModal();
 
   const visibleProducts = useMemo(
@@ -38,28 +39,48 @@ export default function ProductShowcase() {
     [activeTab]
   );
 
+  const displayedProducts = showAll
+    ? visibleProducts
+    : visibleProducts.slice(0, PRODUCTS_PER_PAGE);
+
+  const hasMoreProducts = visibleProducts.length > PRODUCTS_PER_PAGE;
+
+  const handleTabChange = (tab: TabId) => {
+    setActiveTab(tab);
+    setShowAll(false);
+  };
+
   return (
-    <section id="showroom-picks" className="w-full bg-white py-14">
+    <section
+      id="showroom-picks"
+      className="w-full bg-white py-14"
+    >
       <div className="mx-auto max-w-7xl px-6">
+
+        {/* Header */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <span className="text-xs font-semibold uppercase tracking-wide text-slate-400">
               What's In Store This Week
             </span>
+
             <h2 className="mt-1 text-3xl font-extrabold text-navy-900">
               Popular Showroom Picks
             </h2>
+
             <p className="mt-1 text-sm text-slate-500">
-              Check current physical showroom stock and reserve sizes via WhatsApp before visiting.
+              Check current physical showroom stock and reserve sizes via
+              WhatsApp before visiting.
             </p>
           </div>
 
+          {/* Category Tabs */}
           <div className="flex flex-wrap gap-2">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 type="button"
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => handleTabChange(tab.id)}
                 className={[
                   "rounded-full px-4 py-2 text-sm font-semibold transition",
                   activeTab === tab.id
@@ -73,18 +94,19 @@ export default function ProductShowcase() {
           </div>
         </div>
 
+        {/* Products */}
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {visibleProducts.map((product) => {
-            // const priceLabel = `₹${product.price.toLocaleString("en-IN")}${
-            //   product.mrp ? ` (MRP ₹${product.mrp.toLocaleString("en-IN")})` : ""
-            // }`;
-            const sizeLabel = `${product.sizeFieldLabel}: ${product.sizes.join(", ")}`;
+          {displayedProducts.map((product) => {
+            const sizeLabel = `${product.sizeFieldLabel}: ${product.sizes.join(
+              ", "
+            )}`;
 
             return (
               <div
                 key={product.id}
                 className="overflow-hidden rounded-2xl border border-slate-100 shadow-sm transition hover:shadow-md"
               >
+                {/* Product Image */}
                 <div className="relative h-65 w-full">
                   <Image
                     src={product.image}
@@ -92,6 +114,8 @@ export default function ProductShowcase() {
                     fill
                     className="object-cover"
                   />
+
+                  {/* Badge */}
                   <span
                     className={[
                       "absolute left-3 top-3 rounded-md px-2 py-1 text-[10px] font-bold",
@@ -100,35 +124,29 @@ export default function ProductShowcase() {
                   >
                     {product.badge}
                   </span>
+
+                  {/* Brand */}
                   <span className="absolute right-3 top-3 rounded-md bg-white/90 px-2 py-1 text-[10px] font-semibold text-navy-900">
                     {product.brand}
                   </span>
                 </div>
 
+                {/* Product Details */}
                 <div className="p-4">
-                  <h3 className="text-sm font-bold text-navy-900">{product.name}</h3>
-                  <p className="mt-1 text-xs text-slate-500">{product.features}</p>
+                  <h3 className="text-sm font-bold text-navy-900">
+                    {product.name}
+                  </h3>
 
-                  <div className="mt-3 flex items-center gap-2">
-                    {/* <span className="text-lg font-extrabold text-navy-900">
-                      ₹{product.price.toLocaleString("en-IN")}
-                    </span>
-                    {product.mrp && (
-                      <span className="text-xs text-slate-400 line-through">
-                        ₹{product.mrp.toLocaleString("en-IN")}
-                      </span>
-                    )}
-                    {product.discountLabel && (
-                      <span className="rounded-md bg-green-100 px-1.5 py-0.5 text-[10px] font-bold text-green-700">
-                        {product.discountLabel}
-                      </span>
-                    )} */}
-                  </div>
+                  <p className="mt-1 text-xs text-slate-500">
+                    {product.features}
+                  </p>
 
+                  {/* Sizes */}
                   <div className="mt-3">
                     <p className="text-[11px] font-medium text-slate-400">
                       {product.sizeFieldLabel}:
                     </p>
+
                     <div className="mt-1 flex flex-wrap gap-1.5">
                       {product.sizes.map((size) => (
                         <span
@@ -141,6 +159,7 @@ export default function ProductShowcase() {
                     </div>
                   </div>
 
+                  {/* WhatsApp Stock Button */}
                   <button
                     type="button"
                     onClick={() =>
@@ -150,7 +169,6 @@ export default function ProductShowcase() {
                         purposeId: "availability",
                         product: {
                           label: `${product.brand} — ${product.name}`,
-                          // priceLabel,
                           sizeLabel,
                         },
                       })
@@ -165,6 +183,20 @@ export default function ProductShowcase() {
             );
           })}
         </div>
+
+        {/* Show More / Less */}
+        {hasMoreProducts && (
+          <div className="mt-10 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setShowAll((prev) => !prev)}
+              className="rounded-full border border-navy-900 px-7 py-3 text-sm font-semibold text-navy-900 transition hover:bg-navy-900 hover:text-white"
+            >
+              {showAll ? "Show Less" : "Show More"}
+            </button>
+          </div>
+        )}
+
       </div>
     </section>
   );
