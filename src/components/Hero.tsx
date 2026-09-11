@@ -57,7 +57,7 @@ export default function Hero() {
         <div className="relative">
           <div className="overflow-hidden rounded-2xl shadow-xl">
             <Image
-              src="/herofamily.png"
+              src="/herofamily1.png"
               alt="Family shopping at TrendzPlus showroom"
               width={900}
               height={620}
