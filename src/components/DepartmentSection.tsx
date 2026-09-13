@@ -15,6 +15,7 @@ interface Department {
   title: string;
   description: string;
   cta: string;
+  href: string;
 }
 
 const departments: Department[] = [
@@ -28,6 +29,7 @@ const departments: Department[] = [
     description:
       "Formal Shirts, Chinos, Rugged Denims, Polo T-shirts, Casual Linen, and Festive Silk Kurta Sets.",
     cta: "Explore Men's Wear",
+    href: "/departments/mens",
   },
   {
     id: "womens",
@@ -39,6 +41,7 @@ const departments: Department[] = [
     description:
       "Designer Kurtis, Cotton Suits, Printed Dupattas, Western Tops, Casual Jumpsuits, and Daily Leggings.",
     cta: "Explore Women's Wear",
+    href: "/departments/womens",
   },
   {
     id: "kids",
@@ -50,6 +53,7 @@ const departments: Department[] = [
     description:
       "Party Gowns, Boys Waistcoat Sets, Cotton Track Pants, Birthday Wear, and Active Play Apparel.",
     cta: "Explore Kids Wear",
+    href: "/departments/kids",
   },
   {
     id: "festive",
@@ -61,9 +65,9 @@ const departments: Department[] = [
     description:
       "Bandhgala Suits, Designer Indo-Western, Semi-bridal Lehengas, and Color-coordinated Family Combos.",
     cta: "Explore Festive Wear",
+    href: "/departments/festive",
   },
 ];
-
 export default function DepartmentSection() {
   const { openModal } = useEnquiryModal();
 
