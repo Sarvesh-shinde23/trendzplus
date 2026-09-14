@@ -40,7 +40,7 @@ export default function StoreLocator() {
 
           <span className="flex items-center gap-1.5 self-start rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600">
             <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-            5 Showrooms
+            {featured.length} Showrooms
           </span>
         </div>
 
@@ -49,16 +49,18 @@ export default function StoreLocator() {
           {featured.map((loc) => (
             <div
               key={loc.id}
-              className="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              className="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
             >
               {/* Store Image */}
-              <div className="relative h-70 w-full bg-slate-100">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
                 {loc.image ? (
                   <Image
                     src={loc.image}
-                    alt={loc.name}
+                    alt={`${loc.name} showroom`}
                     fill
-                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover object-top"
+                    priority={loc.featured}
                   />
                 ) : (
                   <div className="flex h-full items-center justify-center bg-slate-100">
@@ -68,13 +70,15 @@ export default function StoreLocator() {
                   </div>
                 )}
 
+                {/* Store Badge */}
                 {loc.badge && (
-                  <span className="absolute left-3 top-3 rounded-md bg-navy-900 px-2 py-1 text-[10px] font-bold text-white">
+                  <span className="absolute left-3 top-3 rounded-md bg-navy-900 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wide text-white shadow-sm">
                     {loc.badge}
                   </span>
                 )}
 
-                <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-white px-2 py-1 text-[10px] font-semibold text-green-600 shadow-sm">
+                {/* Open Status */}
+                <span className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1.5 text-[10px] font-semibold text-green-600 shadow-sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
                   Open Today
                 </span>
@@ -86,7 +90,7 @@ export default function StoreLocator() {
                   {loc.name}
                 </h3>
 
-                <div className="mt-3 space-y-2 text-xs text-slate-500">
+                <div className="mt-3 space-y-2.5 text-xs leading-5 text-slate-500">
                   {/* Address */}
                   <p className="flex items-start gap-2">
                     <PinIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-slate-400" />
@@ -100,7 +104,7 @@ export default function StoreLocator() {
                   {loc.hours && (
                     <p className="flex items-center gap-2">
                       <ClockIcon className="h-3.5 w-3.5 shrink-0 text-slate-400" />
-                      {loc.hours}
+                      <span>{loc.hours}</span>
                     </p>
                   )}
 

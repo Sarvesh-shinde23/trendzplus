@@ -1,15 +1,17 @@
+
 "use client";
 
 import Image from "next/image";
+
 import { useEnquiryModal } from "@/context/EnquiryModalContext";
 import type { DepartmentId } from "@/lib/enquiry";
-import { ArrowRightIcon } from "./Icons";
 
+import { ArrowRightIcon } from "./Icons";
 
 interface Department {
   id: DepartmentId;
-  badge: string;
-  badgeTone: "navy" | "orange";
+  // badge: string;
+  // badgeTone: "navy" | "orange";
   image: string;
   count: string;
   title: string;
@@ -21,8 +23,8 @@ interface Department {
 const departments: Department[] = [
   {
     id: "mens",
-    badge: "STARTING ₹599",
-    badgeTone: "navy",
+    // badge: "STARTING ₹599",
+    // badgeTone: "navy",
     image: "/depts-mens.png",
     count: "1,200+ Designs",
     title: "Men's Apparel",
@@ -33,8 +35,8 @@ const departments: Department[] = [
   },
   {
     id: "womens",
-    badge: "STARTING ₹499",
-    badgeTone: "navy",
+    // badge: "STARTING ₹499",
+    // badgeTone: "navy",
     image: "/depts-womens.png",
     count: "2,400+ Designs",
     title: "Women's Collection",
@@ -45,8 +47,8 @@ const departments: Department[] = [
   },
   {
     id: "kids",
-    badge: "STARTING ₹349",
-    badgeTone: "navy",
+    // badge: "STARTING ₹349",
+    // badgeTone: "navy",
     image: "/depts-kids.png",
     count: "Boys & Girls (0–16 Yrs)",
     title: "Kids & Teens Zone",
@@ -57,8 +59,8 @@ const departments: Department[] = [
   },
   {
     id: "festive",
-    badge: "SPECIAL FESTIVE DISCOUNTS",
-    badgeTone: "orange",
+    // badge: "SPECIAL FESTIVE DISCOUNTS",
+    // badgeTone: "orange",
     image: "/depts-festive.png",
     count: "Family Combos",
     title: "Festive & Occasion",
@@ -68,6 +70,7 @@ const departments: Department[] = [
     href: "/departments/festive",
   },
 ];
+
 export default function DepartmentSection() {
   const { openModal } = useEnquiryModal();
 
@@ -79,13 +82,17 @@ export default function DepartmentSection() {
             <span className="text-xs font-semibold uppercase tracking-wide text-slate-400">
               👤 Complete Departmental Range
             </span>
+
             <h2 className="mt-1 text-3xl font-extrabold text-navy-900">
               Explore by Department
             </h2>
+
             <p className="mt-1 text-sm text-slate-500">
-              Practical, comfortable, and celebratory clothing tailored for Indian families.
+              Practical, comfortable, and celebratory clothing tailored for
+              Indian families.
             </p>
           </div>
+
           <p className="text-xs font-medium text-slate-400">
             All sizes from Newborn to 5XL Available
           </p>
@@ -98,15 +105,14 @@ export default function DepartmentSection() {
               className="overflow-hidden rounded-2xl border border-slate-100 shadow-sm transition hover:shadow-md"
             >
               <div className="relative h-60 w-full">
-                <Image src={dept.image} alt={dept.title} fill className="object-cover" />
-                {/* <span
-                  className={[
-                    "absolute left-3 top-3 rounded-md px-2 py-1 text-[10px] font-bold text-white",
-                    dept.badgeTone === "navy" ? "bg-navy-900" : "bg-orange-500",
-                  ].join(" ")}
-                >
-                  {dept.badge}
-                </span> */}
+                <Image
+                  src={dept.image}
+                  alt={dept.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover"
+                />
+
                 <span className="absolute bottom-3 right-3 rounded-md bg-black/60 px-2 py-1 text-[10px] font-semibold text-white">
                   {dept.count}
                 </span>
@@ -114,9 +120,11 @@ export default function DepartmentSection() {
 
               <div className="p-4">
                 <h3 className="font-bold text-navy-900">{dept.title}</h3>
+
                 <p className="mt-1 text-xs leading-relaxed text-slate-500">
                   {dept.description}
                 </p>
+
                 <button
                   type="button"
                   onClick={() =>
@@ -128,7 +136,8 @@ export default function DepartmentSection() {
                   }
                   className="mt-3 flex items-center gap-1 text-sm font-semibold text-navy-900 hover:gap-2"
                 >
-                  {dept.cta} <ArrowRightIcon className="h-4 w-4 transition-all" />
+                  {dept.cta}
+                  <ArrowRightIcon className="h-4 w-4 transition-all" />
                 </button>
               </div>
             </div>

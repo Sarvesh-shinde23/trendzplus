@@ -32,7 +32,7 @@ export default function Hero() {
           <div className="mt-5 flex flex-wrap gap-3 text-xs font-medium text-slate-600">
             <Badge label="50+ Leading Brands" />
             <Badge label="Daily Wear to Festive Sets" />
-            <Badge label="8 Physical Stores in City" />
+            <Badge label="5 Physical Stores in City" />
           </div>
 
           <div className="mt-6 flex flex-wrap gap-3">
